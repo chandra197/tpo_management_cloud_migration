@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TPO Management System - Reports</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/reports.css" />
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script type="module" src="/js/reports.js"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-brand">TPO Management System</div>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/student-profile.html">Student Profile</a>
+        <a href="/attendance.html">Attendance</a>
+        <a href="/timetable.html">Timetable</a>
+        <a href="/reports.html" class="active">Reports</a>
+      </div>
+    </nav>
+
+    <div class="main-container">
+      <aside class="sidebar">
+        <ul class="sidebar-nav">
+          <li><a href="#" data-tab="daily" class="active">Daily Reports</a></li>
+          <li><a href="#" data-tab="weekly">Weekly Reports</a></li>
+          <li><a href="#" data-tab="yearly">Year-wise Reports</a></li>
+        </ul>
+      </aside>
+
+      <main class="main-content">
+        <!-- Daily Reports Section -->
+        <section id="daily-tab" class="tab-content">
+          <div class="section-selector">
+            <h2>Daily Attendance Report</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="daily-branch">Branch</label>
+                <select id="daily-branch" required>
+                  <option value="">Select Branch</option>
+                  <option value="CSE">CSE</option>
+                  <option value="ECE">ECE</option>
+                  <option value="EEE">EEE</option>
+                  <option value="MECH">MECH</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="daily-date">Date</label>
+                <input type="date" id="daily-date" required />
+              </div>
+            </div>
+            <div class="button-group">
+              <button id="generate-daily-report" class="btn primary">
+                Generate Report
+              </button>
+              <button id="download-daily-report" class="btn success" disabled>
+                Download Report
+              </button>
+            </div>
+          </div>
+          <div
+            id="daily-results"
+            class="report-container"
+            style="display: none"
+          >
+            <table class="report-table">
+              <thead>
+                <tr>
+                  <th>Hall Ticket Number</th>
+                  <th>Name</th>
+                  <th>Year</th>
+                  <th>Section</th>
+                </tr>
+              </thead>
+              <tbody id="daily-attendance"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Weekly Reports Section -->
+        <section id="weekly-tab" class="tab-content" style="display: none">
+          <div class="section-selector">
+            <h2>Weekly Attendance Report</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="weekly-batch-year">Batch Year</label>
+                <input
+                  type="number"
+                  id="weekly-batch-year"
+                  min="2020"
+                  max="2030"
+                  placeholder="e.g., 2025"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="weekly-year">Year</label>
+                <select id="weekly-year" required>
+                  <option value="">Select Year</option>
+                  <option value="1">1st Year</option>
+                  <option value="2">2nd Year</option>
+                  <option value="3">3rd Year</option>
+                  <option value="4">4th Year</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="weekly-branch">Branch</label>
+                <select id="weekly-branch" required>
+                  <option value="">Select Branch</option>
+                  <option value="CSE">CSE</option>
+                  <option value="ECE">ECE</option>
+                  <option value="EEE">EEE</option>
+                  <option value="MECH">MECH</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="weekly-semester">Semester</label>
+                <select id="weekly-semester" required>
+                  <option value="">Select Semester</option>
+                  <option value="odd">Odd</option>
+                  <option value="even">Even</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="weekly-start-date">Start Date</label>
+                <input type="date" id="weekly-start-date" required />
+              </div>
+              <div class="form-group">
+                <label for="weekly-end-date">End Date</label>
+                <input type="date" id="weekly-end-date" required />
+              </div>
+            </div>
+            <div class="button-group">
+              <button id="generate-weekly-report" class="btn primary">
+                Generate Report
+              </button>
+              <button id="download-weekly-report" class="btn success" disabled>
+                Download Report
+              </button>
+            </div>
+          </div>
+          <div
+            id="weekly-results"
+            class="report-container"
+            style="display: none"
+          >
+            <table class="report-table">
+              <thead>
+                <tr>
+                  <th>Hall Ticket Number</th>
+                  <th>Name</th>
+                  <th>Year</th>
+                  <th>Section</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="weekly-attendance"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Year-wise Reports Section -->
+        <section id="yearly-tab" class="tab-content" style="display: none">
+          <div class="section-selector">
+            <h2>Year-wise Attendance Report</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="yearly-batch-year">Batch Year</label>
+                <input
+                  type="number"
+                  id="yearly-batch-year"
+                  min="2020"
+                  max="2030"
+                  placeholder="e.g., 2025"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="yearly-year">Year</label>
+                <select id="yearly-year" required>
+                  <option value="">Select Year</option>
+                  <option value="1">1st Year</option>
+                  <option value="2">2nd Year</option>
+                  <option value="3">3rd Year</option>
+                  <option value="4">4th Year</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="yearly-branch">Branch</label>
+                <select id="yearly-branch" required>
+                  <option value="">Select Branch</option>
+                  <option value="CSE">CSE</option>
+                  <option value="ECE">ECE</option>
+                  <option value="EEE">EEE</option>
+                  <option value="MECH">MECH</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="yearly-semester">Semester</label>
+                <select id="yearly-semester" required>
+                  <option value="">Select Semester</option>
+                  <option value="odd">Odd</option>
+                  <option value="even">Even</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="yearly-date">Date</label>
+                <input type="date" id="yearly-date" required />
+              </div>
+            </div>
+            <div class="button-group">
+              <button id="generate-yearly-report" class="btn primary">
+                Generate Report
+              </button>
+              <button id="download-yearly-report" class="btn success" disabled>
+                Download Report
+              </button>
+            </div>
+          </div>
+
+          <div
+            id="yearly-results"
+            class="report-container"
+            style="display: none"
+          >
+            <div class="table-wrapper">
+              <table class="report-table">
+                <thead>
+                  <tr>
+                    <th>Hall Ticket Number</th>
+                    <th>Name</th>
+                    <th>Year</th>
+                    <th>Section</th>
+                    <th>Sessions Present</th>
+                    <th>Sessions Absent</th>
+                    <th>Total Sessions</th>
+                  </tr>
+                </thead>
+                <tbody id="yearly-attendance"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
