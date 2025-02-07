@@ -1,0 +1,29 @@
+{
+  "name": "tpo-management-system",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "test-db": "node test-connection.js"
+  },
+  "dependencies": {
+    "mysql2": "^3.9.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.17",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "nodemon": "^3.0.3",
+    "postcss": "^8.4.33",
+    "vite": "^5.0.8"
+  }
+}
